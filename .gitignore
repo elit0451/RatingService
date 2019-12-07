@@ -1,0 +1,13 @@
+./.DS_Store
+./.vscode
+src/MiniProj3.code-workspace
+src/Admin/.vscode/
+src/Admin/[Bb]in/
+src/Admin/[Oo]bj/
+src/Client/.vscode/
+src/Client/[Bb]in/
+src/Client/[Oo]bj/
+src/Collector/.vscode/
+src/Collector/[Bb]in/
+src/Collector/[Oo]bj/
+*/*/publish/

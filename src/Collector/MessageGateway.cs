@@ -33,23 +33,35 @@ namespace Collector
                 var message = Encoding.UTF8.GetString(body);
                 Console.WriteLine(" [x] Received {0}", message);
 
-                JObject receivedObj = JsonConvert.DeserializeObject<JObject>(message);
-                int grade = receivedObj["Grade"].Value<int>();
-                string description = receivedObj["Description"].Value<string>();
-                string country = receivedObj["Country"].Value<string>();
-                string gender = receivedObj["Gender"].Value<string>();
-                int age = receivedObj["Age"].Value<int>();
+                int grade = 0;
+                string description = "";
+                string country = "";
+                string gender = "";
+                int age = 0;
 
-                Questionnaire questionnaire = DataNormalizer.Normalize(grade, description, country, gender, age);
-                Console.WriteLine(questionnaire.ToString());
-                AnswersRepository.Instance.AddQuestionnaire(questionnaire);
+                try
+                {
+                    JObject receivedObj = JsonConvert.DeserializeObject<JObject>(message);
+                    grade = receivedObj["Grade"].Value<int>();
+                    description = receivedObj["Description"].Value<string>();
+                    country = receivedObj["Country"].Value<string>();
+                    gender = receivedObj["Gender"].Value<string>();
+                    age = receivedObj["Age"].Value<int>();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Parsing failed");
+                }
+                finally
+                {
+                    Questionnaire questionnaire = DataNormalizer.Normalize(grade, description, country, gender, age);
+                    Console.WriteLine(questionnaire.ToString());
+                    AnswersRepository.Instance.AddQuestionnaire(questionnaire);
+                }
             };
             channel.BasicConsume(queue: "answers",
                                  autoAck: true,
                                  consumer: consumer);
-
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
         }
     }
 }

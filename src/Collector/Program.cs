@@ -12,8 +12,7 @@ namespace Collector
         private void Run()
         {
             MessageGateway.ReceiveAnswers();
-            while(true){
-            }
+            SocketServer.Run();
         }
     }
 }

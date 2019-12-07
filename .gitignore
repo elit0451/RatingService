@@ -1,5 +1,5 @@
-./.DS_Store
-./.vscode/
+.DS_Store
+.vscode/
 src/MiniProj3.code-workspace
 src/Admin/.vscode/
 src/Admin/[Bb]in/

@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  build-collector:
     docker:
         - image: davi7816/dotnetcore-docker:3.0
 
@@ -24,4 +24,54 @@ jobs:
             docker build -t davi7816/si-collector:latest .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
             docker push davi7816/si-collector:latest
-            ssh -o StrictHostKeyChecking=no cicleci@167.172.98.57 "/bin/bash ./deploy_app.sh davi7816/si-collector:latest" 
+            ssh -o StrictHostKeyChecking=no cicleci@167.172.98.57 "/bin/bash ./deploy_app.sh davi7816/si-collector:latest"
+  
+  build-admin:
+    docker:
+        - image: davi7816/dotnetcore-docker:3.0
+
+    working_directory: ~/repo/src/Admin
+    
+    steps:
+      - checkout:
+          path: ~/repo
+      - run:
+          name: Restore packages
+          command: 
+            dotnet restore
+      - run:
+          name: Build app
+          command: 
+            dotnet build -c Release -o publish
+      - setup_remote_docker:
+      - run:
+          name: Deploy app
+          command: |
+            docker build -t davi7816/si-admin:latest .
+            echo $DockerPass | docker login -u $DockerUser --password-stdin 
+            docker push davi7816/si-admin:latest
+  
+  build-client:
+    docker:
+        - image: davi7816/dotnetcore-docker:3.0
+
+    working_directory: ~/repo/src/Client
+    
+    steps:
+      - checkout:
+          path: ~/repo
+      - run:
+          name: Restore packages
+          command: 
+            dotnet restore
+      - run:
+          name: Build app
+          command: 
+            dotnet build -c Release -o publish
+      - setup_remote_docker:
+      - run:
+          name: Deploy app
+          command: |
+            docker build -t davi7816/si-client:latest .
+            echo $DockerPass | docker login -u $DockerUser --password-stdin 
+            docker push davi7816/si-client:latest

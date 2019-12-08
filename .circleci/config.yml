@@ -21,10 +21,10 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            docker build -t davi7816/si-collector:latest .
+            docker build -t davi7816/si-collector:0.${CIRCLE_BUILD_NUM} .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
-            docker push davi7816/si-collector:latest
-            ssh -o StrictHostKeyChecking=no cicleci@167.172.98.57 "/bin/bash ./deploy_app.sh davi7816/si-collector:latest"
+            docker push davi7816/si-collector:0.${CIRCLE_BUILD_NUM}
+            ssh -o StrictHostKeyChecking=no cicleci@167.172.98.57 "/bin/bash ./deploy_app.sh davi7816/si-collector:0.${CIRCLE_BUILD_NUM}"
 
   build-admin:
     docker:
@@ -47,9 +47,9 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            docker build -t davi7816/si-admin:latest .
+            docker build -t davi7816/si-admin:0.${CIRCLE_BUILD_NUM} .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
-            docker push davi7816/si-admin:latest
+            docker push davi7816/si-admin:0.${CIRCLE_BUILD_NUM}
   
   build-client:
     docker:
@@ -72,9 +72,9 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            docker build -t davi7816/si-client:latest .
+            docker build -t davi7816/si-client:0.${CIRCLE_BUILD_NUM} .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
-            docker push davi7816/si-client:latest
+            docker push davi7816/si-client:0.${CIRCLE_BUILD_NUM}
 
 workflows:
   version: 2

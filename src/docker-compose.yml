@@ -1,0 +1,17 @@
+version: '1'
+
+services:
+# Start messaging broker
+    rabbitmq:
+        image: rabbitmq:3.6.5-management
+        ports:
+            - "5672:5672"
+            - "15672:15672" #Management Server
+    reservation:
+        links: ["rabbitmq"]
+        image: 'davi7816/collector'
+        restart: always
+    package:
+        links: ["rabbitmq"]
+        image: 'davi7816/package'
+        restart: always

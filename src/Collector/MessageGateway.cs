@@ -14,7 +14,7 @@ namespace Collector
         private static IModel channel;
         static MessageGateway()
         {
-            factory = new ConnectionFactory() { HostName = "localhost" };
+            factory = new ConnectionFactory() { HostName = "rabbitMQ" };
             connection = factory.CreateConnection();
             channel = connection.CreateModel();
         }

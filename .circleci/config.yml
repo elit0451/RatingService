@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-        - image: davi7816/dotnetcore-docker:3.0
+        - image: mcr.microsoft.com/dotnet/core/sdk:3.0
 
     working_directory: ~/repo/src/Collector
     
@@ -17,7 +17,7 @@ jobs:
           name: Build app
           command: 
             dotnet build
-      - setup_remote_docker
+      - setup_remote_docker:
       - run:
           name: Deploy app
           command: |

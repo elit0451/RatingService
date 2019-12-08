@@ -17,3 +17,10 @@ jobs:
           name: Build app
           command: 
             dotnet build
+      - run:
+          name: Deploy app
+          command: |
+            docker build -t davi7816/si-collector:latest .
+            echo $DockerPass | docker login -u $DockerUser --password-stdin 
+            docker push davi7816/si-collector:latest
+            ssh -o StrictHostKeyChecking=no circleci@167.172.98.57 "/bin/bash ./deploy_app.sh davi7816/si-collector:latest" 

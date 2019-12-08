@@ -10,9 +10,10 @@ jobs:
   build:
     docker:
           - image: mcr.microsoft.com/dotnet/core/sdk:2.2
-          
+
     working_directory: ~/src/Collector
     
+    steps:
       - run:
           name: Restore packages
           command: 

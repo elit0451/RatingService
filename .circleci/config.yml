@@ -1,13 +1,18 @@
 version: 2
 jobs:
-  build:
+  checkout-project:
     docker:
         - image: mcr.microsoft.com/dotnet/core/sdk:2.2
 
-    working_directory: ~/src/Collector
-    
     steps:
       - checkout
+
+  build:
+    docker:
+          - image: mcr.microsoft.com/dotnet/core/sdk:2.2
+          
+    working_directory: ~/src/Collector
+    
       - run:
           name: Restore packages
           command: 

@@ -22,7 +22,7 @@ jobs:
           name: Build app
           command: 
             dotnet build -c Release -o publish
-      - setup_remote_docker:
+      - setup_remote_docker
       - run:
           name: Deploy app
           command: |
@@ -48,7 +48,7 @@ jobs:
           name: Build app
           command: 
             dotnet build -c Release -o publish
-      - setup_remote_docker:
+      - setup_remote_docker
       - run:
           name: Deploy app
           command: |
@@ -73,7 +73,7 @@ jobs:
           name: Build app
           command: 
             dotnet build -c Release -o publish
-      - setup_remote_docker:
+      - setup_remote_docker
       - run:
           name: Deploy app
           command: |

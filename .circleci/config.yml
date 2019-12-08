@@ -25,7 +25,7 @@ jobs:
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
             docker push davi7816/si-collector:latest
             ssh -o StrictHostKeyChecking=no cicleci@167.172.98.57 "/bin/bash ./deploy_app.sh davi7816/si-collector:latest"
-  
+
   build-admin:
     docker:
         - image: davi7816/dotnetcore-docker:3.0
@@ -75,3 +75,11 @@ jobs:
             docker build -t davi7816/si-client:latest .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
             docker push davi7816/si-client:latest
+
+workflows:
+  version: 2
+  si-worflow:
+    jobs:
+      - build-collector
+      - build-admin
+      - build-client

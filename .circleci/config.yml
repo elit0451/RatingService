@@ -4,11 +4,11 @@ jobs:
     docker:
         - image: mcr.microsoft.com/dotnet/core/sdk:2.2
 
-    working_directory: ~/src/Collector
+    working_directory: ~/repo/src/Collector
     
     steps:
       - checkout:
-          path: ~/
+          path: ~/repo
       - run:
           name: Restore packages
           command: 

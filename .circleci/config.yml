@@ -1,8 +1,9 @@
 version: 2.1
 parameters:
   tag:
-    type: string
-    default: "0.<<parameters.tag>>"
+      type: string
+      default: "0.<<parameters.tag>>"
+
 jobs:
   build-collector:
     docker:

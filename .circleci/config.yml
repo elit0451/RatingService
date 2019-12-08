@@ -1,12 +1,11 @@
-version: 2.1
-executors:
-  collector-exec:
-    docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:2.2
-    working_directory: ~/src/Collector
+version: 2
 jobs:
   build:
-    executor: collector-exec
+    docker:
+        - image: mcr.microsoft.com/dotnet/core/sdk:2.2
+
+    working_directory: ~/src/Collector
+    
     steps:
       - checkout
       - run:

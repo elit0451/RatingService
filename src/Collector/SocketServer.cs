@@ -46,7 +46,7 @@ namespace Collector
                 string clientMessage = reader.ReadLine();
                 if (clientMessage != "")
                 {
-                    Console.WriteLine(client.RemoteEndPoint + " says \"" + clientMessage + "\"");
+                    Console.WriteLine(client.RemoteEndPoint + " asked for \"" + clientMessage + "\"");
                     string[] commands = clientMessage.Split(' ');
 
                     switch (commands[0])

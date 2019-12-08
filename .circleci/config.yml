@@ -1,8 +1,17 @@
-version: 2
+version: 2.1
+executors:
+  collector-exec:
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:2.2
+    working_directory: ~/src/Collector
 jobs:
   build:
-    docker:
-      - image: circleci/ruby:2.4.1
+    executor: collector-exec
     steps:
       - checkout
-      - run: echo "A first hello"
+      - run:
+        name: Restore packages
+        command: dotnet restore
+      - run:
+        name: Build app
+        command: dotnet build

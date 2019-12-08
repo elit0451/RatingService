@@ -17,6 +17,7 @@ jobs:
           name: Build app
           command: 
             dotnet build
+      - setup_remote_docker
       - run:
           name: Deploy app
           command: |

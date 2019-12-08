@@ -1,8 +1,8 @@
 version: 2.1
 parameters:
   tag:
-      type: string
-      default: "0.<<parameters.tag>>"
+    type: string
+    default: "0.${CIRCLE_BUILD_NUM}"
 
 jobs:
   build-collector:

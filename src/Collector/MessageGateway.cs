@@ -39,25 +39,16 @@ namespace Collector
                 string gender = "";
                 int age = 0;
 
-                try
-                {
-                    JObject receivedObj = JsonConvert.DeserializeObject<JObject>(message);
-                    grade = receivedObj["Grade"].Value<int>();
-                    description = receivedObj["Description"].Value<string>();
-                    country = receivedObj["Country"].Value<string>();
-                    gender = receivedObj["Gender"].Value<string>();
-                    age = receivedObj["Age"].Value<int>();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Parsing failed");
-                }
-                finally
-                {
-                    Questionnaire questionnaire = DataNormalizer.Normalize(grade, description, country, gender, age);
-                    Console.WriteLine(questionnaire.ToString());
-                    AnswersRepository.Instance.AddQuestionnaire(questionnaire);
-                }
+                JObject receivedObj = JsonConvert.DeserializeObject<JObject>(message);
+                grade = receivedObj["Grade"].Value<int>();
+                description = receivedObj["Description"].Value<string>();
+                country = receivedObj["Country"].Value<string>();
+                gender = receivedObj["Gender"].Value<string>();
+                age = receivedObj["Age"].Value<int>();
+
+                Questionnaire questionnaire = DataNormalizer.Normalize(grade, description, country, gender, age);
+                Console.WriteLine("Collected some data");
+                AnswersRepository.Instance.AddQuestionnaire(questionnaire);
             };
             channel.BasicConsume(queue: "answers",
                                  autoAck: true,

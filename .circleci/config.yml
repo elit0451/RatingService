@@ -1,4 +1,8 @@
-version: 2
+version: 2.1
+parameters:
+  tag:
+    type: string
+    default: "0.<<parameters.tag>>"
 jobs:
   build-collector:
     docker:
@@ -21,10 +25,10 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            docker build -t davi7816/si-collector:0.${CIRCLE_BUILD_NUM} .
+            docker build -t davi7816/si-collector:<<parameters.tag>> .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
-            docker push davi7816/si-collector:0.${CIRCLE_BUILD_NUM}
-            ssh -o StrictHostKeyChecking=no cicleci@167.172.98.57 "/bin/bash ./deploy_app.sh davi7816/si-collector:0.${CIRCLE_BUILD_NUM}"
+            docker push davi7816/si-collector:<<parameters.tag>>
+            ssh -o StrictHostKeyChecking=no cicleci@167.172.98.57 "/bin/bash ./deploy_app.sh davi7816/si-collector:<<parameters.tag>>"
 
   build-admin:
     docker:
@@ -47,9 +51,9 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            docker build -t davi7816/si-admin:0.${CIRCLE_BUILD_NUM} .
+            docker build -t davi7816/si-admin:<<parameters.tag>> .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
-            docker push davi7816/si-admin:0.${CIRCLE_BUILD_NUM}
+            docker push davi7816/si-admin:<<parameters.tag>>
   
   build-client:
     docker:
@@ -72,9 +76,9 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            docker build -t davi7816/si-client:0.${CIRCLE_BUILD_NUM} .
+            docker build -t davi7816/si-client:<<parameters.tag>> .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
-            docker push davi7816/si-client:0.${CIRCLE_BUILD_NUM}
+            docker push davi7816/si-client:<<parameters.tag>>
 
 workflows:
   version: 2

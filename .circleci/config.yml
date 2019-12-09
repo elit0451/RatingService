@@ -1,10 +1,11 @@
 version: 2.1
-commands:
-  parameters:
+jobs:
+  version-number:
+    parameters:
       tag:
         type: string
         default: "0.${CIRCLE_BUILD_NUM}"
-jobs:
+
   build-collector:
     docker:
         - image: davi7816/dotnetcore-docker:3.0
@@ -26,10 +27,10 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            docker build -t davi7816/si-collector:<<parameters.tag>> .
+            docker build -t davi7816/si-collector:<< parameters.tag >> .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
-            docker push davi7816/si-collector:<<parameters.tag>>
-            ssh -o StrictHostKeyChecking=no cicleci@167.172.98.57 "/bin/bash ./deploy_app.sh davi7816/si-collector:<<parameters.tag>>"
+            docker push davi7816/si-collector:<< parameters.tag >>
+            ssh -o StrictHostKeyChecking=no cicleci@167.172.98.57 "/bin/bash ./deploy_app.sh davi7816/si-collector:<< parameters.tag >>"
 
   build-admin:
     docker:
@@ -52,9 +53,9 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            docker build -t davi7816/si-admin:<<parameters.tag>> .
+            docker build -t davi7816/si-admin:<< parameters.tag >> .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
-            docker push davi7816/si-admin:<<parameters.tag>>
+            docker push davi7816/si-admin:<< parameters.tag >>
   
   build-client:
     docker:
@@ -77,14 +78,15 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            docker build -t davi7816/si-client:<<parameters.tag>> .
+            docker build -t davi7816/si-client:<< parameters.tag >> .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
-            docker push davi7816/si-client:<<parameters.tag>>
+            docker push davi7816/si-client:<< parameters.tag >>
 
 workflows:
   version: 2.1
   si-worflow:
     jobs:
+      - version-number
       - build-collector
       - build-admin
       - build-client

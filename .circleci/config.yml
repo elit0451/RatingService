@@ -1,12 +1,4 @@
 version: 2.1
-commands:
-  version-number:
-    parameters:
-      tag:
-        type: string
-        default: "0.${CIRCLE_BUILD_NUM}"
-    steps:
-      - run: echo << parameters.tag >>
 
 jobs:
   build-collector:
@@ -14,7 +6,12 @@ jobs:
         - image: davi7816/dotnetcore-docker:3.0
 
     working_directory: ~/repo/src/Collector
-    
+
+    parameters:
+      tag:
+        type: string
+        default: "0.${CIRCLE_BUILD_NUM}"
+
     steps:
       - checkout:
           path: ~/repo
@@ -41,6 +38,11 @@ jobs:
 
     working_directory: ~/repo/src/Admin
     
+    parameters:
+      tag:
+        type: string
+        default: "0.${CIRCLE_BUILD_NUM}"
+
     steps:
       - checkout:
           path: ~/repo
@@ -66,6 +68,11 @@ jobs:
 
     working_directory: ~/repo/src/Client
     
+    parameters:
+      tag:
+        type: string
+        default: "0.${CIRCLE_BUILD_NUM}"
+
     steps:
       - checkout:
           path: ~/repo

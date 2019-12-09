@@ -43,18 +43,18 @@ namespace Collector
 
                 writer.AutoFlush = true;
 
-                string clientMessage = reader.ReadLine();
+                string clientMessage = reader.ReadLine().Trim();
                 if (clientMessage != "")
                 {
-                    Console.WriteLine(client.RemoteEndPoint + " asked for \"" + clientMessage + "\"");
+                    Console.WriteLine(client.RemoteEndPoint + " asked for \"" + clientMessage.ToLower() + "\"");
                     string[] commands = clientMessage.Split(' ');
 
-                    switch (commands[0])
+                    switch (commands[0].ToLower())
                     {
                         case "average":
                             try
                             {
-                                switch (commands[1])
+                                switch (commands[1].ToLower())
                                 {
                                     case "grade":
                                         writer.WriteLine(CalculateAvgGrade());

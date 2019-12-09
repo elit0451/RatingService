@@ -1,5 +1,10 @@
 version: 2.1
 
+parameters:
+  tag:
+    type: string
+    default: "0.$(CIRCLE_BUILD_NUM)"
+
 jobs:
   build-collector:
     docker:
@@ -7,11 +12,6 @@ jobs:
 
     working_directory: ~/repo/src/Collector
 
-    parameters:
-      tag:
-        type: string
-        default: "0.${CIRCLE_BUILD_NUM - 2}"
-
     steps:
       - checkout:
           path: ~/repo
@@ -27,21 +27,16 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            docker build -t davi7816/si-collector:<< parameters.tag >> .
+            docker build -t davi7816/si-collector:<< pipeline.parameters.tag >> .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
-            docker push davi7816/si-collector:<< parameters.tag >>
-            ssh -o StrictHostKeyChecking=no cicleci@167.172.98.57 "/bin/bash ./deploy_app.sh davi7816/si-collector:<< parameters.tag >>"
+            docker push davi7816/si-collector:<< pipeline.parameters.tag >>
+            ssh -o StrictHostKeyChecking=no cicleci@167.172.98.57 "/bin/bash ./deploy_app.sh davi7816/si-collector:<< pipeline.parameters.tag >>"
 
   build-admin:
     docker:
         - image: davi7816/dotnetcore-docker:3.0
 
     working_directory: ~/repo/src/Admin
-    
-    parameters:
-      tag:
-        type: string
-        default: "0.$(CIRCLE_BUILD_NUM - 1)" 
 
     steps:
       - checkout:
@@ -58,20 +53,15 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            docker build -t davi7816/si-admin:<< parameters.tag >> .
+            docker build -t davi7816/si-admin:<< pipeline.parameters.tag >> .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
-            docker push davi7816/si-admin:<< parameters.tag >>
+            docker push davi7816/si-admin:<< pipeline.parameters.tag >>
   
   build-client:
     docker:
         - image: davi7816/dotnetcore-docker:3.0
 
     working_directory: ~/repo/src/Client
-    
-    parameters:
-      tag:
-        type: string
-        default: "0.$(CIRCLE_BUILD_NUM)"
 
     steps:
       - checkout:
@@ -88,9 +78,9 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            docker build -t davi7816/si-client:<< parameters.tag >> .
+            docker build -t davi7816/si-client:<< pipeline.parameters.tag >> .
             echo $DockerPass | docker login -u $DockerUser --password-stdin 
-            docker push davi7816/si-client:<< parameters.tag >>
+            docker push davi7816/si-client:<< pipeline.parameters.tag >>
 
 workflows:
   version: 2.1

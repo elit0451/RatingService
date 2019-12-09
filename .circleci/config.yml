@@ -1,10 +1,10 @@
 version: 2.1
-jobs:
+commands:
   parameters:
-    tag:
-      type: string
-      default: "0.${CIRCLE_BUILD_NUM}"
-
+      tag:
+        type: string
+        default: "0.${CIRCLE_BUILD_NUM}"
+jobs:
   build-collector:
     docker:
         - image: davi7816/dotnetcore-docker:3.0

@@ -1,12 +1,12 @@
 version: 2.1
-jobs:
+commands:
   version-number:
     parameters:
       tag:
         type: string
         default: "0.${CIRCLE_BUILD_NUM}"
-    machine: true
 
+jobs:
   build-collector:
     docker:
         - image: davi7816/dotnetcore-docker:3.0
@@ -87,7 +87,6 @@ workflows:
   version: 2.1
   si-worflow:
     jobs:
-      - version-number
       - build-collector
       - build-admin
       - build-client

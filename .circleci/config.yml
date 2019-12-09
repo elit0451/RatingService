@@ -5,6 +5,8 @@ commands:
       tag:
         type: string
         default: "0.${CIRCLE_BUILD_NUM}"
+    steps:
+      - run: echo <<parameters.tag>>
 
 jobs:
   build-collector:

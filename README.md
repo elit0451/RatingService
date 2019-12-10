@@ -74,12 +74,6 @@ For continuous integration, we use the CircleCI pipeline which will execute comm
 </br>
 
 ---
-## Orchestration
-
-
-</br>
-
----
 > #### Assignment made by:   
 `David Alves 👨🏻‍💻 ` :octocat: [Github](https://github.com/davi7725) <br />
 `Elitsa Marinovska 👩🏻‍💻 ` :octocat: [Github](https://github.com/elit0451) <br />

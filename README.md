@@ -69,6 +69,12 @@ Docker images are created for all of them and deployed to Docker hub - [client](
 
 ----
 ## CI/CD :link:
+For continuous integration, we use the CircleCI pipeline which will execute commands specified in the [config.yml](https://github.com/elit0451/RatingService/blob/master/.circleci/config.yml) file. The current integration process is getting all the necessary dependencies, building .Net Core source code and building docker images uploaded to docker hub. For the Collector service, we also run a deploy script on a Digital Ocean droplet.
+
+</br>
+
+---
+## Orchestration
 
 
 </br>

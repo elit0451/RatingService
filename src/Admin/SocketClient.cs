@@ -13,7 +13,7 @@ namespace Admin
 
         public void Start()
         {
-            TcpClient server = new TcpClient("localhost", 12345);
+            TcpClient server = new TcpClient("167.172.98.57", 12345);
 
             string serverMessage = "";
 

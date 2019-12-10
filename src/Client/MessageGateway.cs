@@ -13,7 +13,7 @@ namespace Client
         private static IModel channel;
         static MessageGateway()
         {
-            factory = new ConnectionFactory() { HostName = "localhost" };
+            factory = new ConnectionFactory() { HostName = "167.172.98.57" };
             connection = factory.CreateConnection();
             channel = connection.CreateModel();
         }

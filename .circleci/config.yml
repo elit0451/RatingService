@@ -85,7 +85,7 @@ jobs:
 
 workflows:
   version: 2.1
-  si-worflow:
+  si-workflow:
     jobs:
       - build-collector
       - build-admin
